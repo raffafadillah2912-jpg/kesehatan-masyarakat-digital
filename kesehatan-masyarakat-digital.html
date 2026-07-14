@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kesehatan Masyarakat di Era Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EFF3EE;
+    --bg-alt: #E2EAE3;
+    --paper: #FBFAF6;
+    --ink: #142420;
+    --ink-soft: #445048;
+    --forest: #1B4B43;
+    --forest-dark: #0E2E29;
+    --amber: #E0972E;
+    --amber-soft: #F3D9A8;
+    --clay: #BE4C2B;
+    --line: rgba(20,36,32,0.14);
+    --radius: 14px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--forest-dark);
+    margin: 0;
+  }
+  .mono{
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    color: var(--forest);
+  }
+  a { color: inherit; }
+  img, svg { display:block; max-width:100%; }
+
+  .wrap{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position: sticky;
+    top:0;
+    z-index: 50;
+    background: rgba(239,243,238,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding-top:16px;
+    padding-bottom:16px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.05rem;
+    color: var(--forest-dark);
+  }
+  .brand-mark{ width:26px; height:26px; flex-shrink:0; }
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap: 28px;
+    margin:0; padding:0;
+  }
+  nav ul a{
+    text-decoration:none;
+    font-size:0.92rem;
+    color: var(--ink-soft);
+    transition: color .2s;
+  }
+  nav ul a:hover{ color: var(--forest); }
+  @media (max-width: 720px){
+    nav ul{ display:none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    padding: 96px 0 64px;
+    overflow: hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items:center;
+  }
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns: 1fr; }
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding: 6px 12px;
+    border-radius: 100px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    margin-bottom: 22px;
+  }
+  .dot{
+    width:7px; height:7px; border-radius:50%;
+    background: var(--clay);
+    animation: pulse-dot 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse-dot{
+    0%,100%{ transform: scale(1); opacity:1; }
+    50%{ transform: scale(1.6); opacity:.55; }
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.06;
+  }
+  .hero h1 em{
+    font-style: normal;
+    color: var(--forest);
+    position: relative;
+  }
+  .hero p.lede{
+    margin-top: 22px;
+    font-size: 1.12rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+  .hero-cta{
+    margin-top: 32px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding: 13px 24px;
+    border-radius: 100px;
+    font-size: 0.94rem;
+    font-weight: 500;
+    text-decoration:none;
+    cursor:pointer;
+    border: 1px solid transparent;
+    transition: transform .18s ease, background .2s;
+  }
+  .btn-primary{ background: var(--forest); color: var(--paper); }
+  .btn-primary:hover{ background: var(--forest-dark); transform: translateY(-1px); }
+  .btn-ghost{ border-color: var(--line); color: var(--ink); background: transparent; }
+  .btn-ghost:hover{ border-color: var(--forest); }
+
+  /* pulse ECG signature visual */
+  .pulse-box{
+    background: var(--forest-dark);
+    border-radius: 20px;
+    padding: 28px;
+    position: relative;
+    box-shadow: 0 20px 50px -20px rgba(14,46,41,0.55);
+  }
+  .pulse-box .mono{ color: var(--amber-soft); }
+  .pulse-readout{
+    display:flex;
+    justify-content: space-between;
+    align-items:baseline;
+    margin-top: 4px;
+  }
+  .pulse-readout .num{
+    font-family:'Fraunces', serif;
+    font-size: 2.6rem;
+    color: var(--paper);
+  }
+  .pulse-readout .unit{ color: var(--amber-soft); font-family:'IBM Plex Mono', monospace; font-size:0.8rem; }
+  #pulseSvg{ width:100%; height:110px; margin-top: 14px; }
+  .pulse-path{
+    fill:none;
+    stroke: var(--amber);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: draw-pulse 3.2s linear infinite;
+  }
+  @keyframes draw-pulse{
+    0%{ stroke-dashoffset: 400; }
+    70%{ stroke-dashoffset: 0; }
+    100%{ stroke-dashoffset: -20; }
+  }
+  .pulse-caption{
+    margin-top: 10px;
+    font-size: 0.82rem;
+    color: rgba(251,250,246,0.6);
+  }
+
+  /* divider pulse line between sections */
+  .divider{
+    height: 46px;
+    width:100%;
+  }
+  .divider svg{ width:100%; height:100%; }
+  .divider path{
+    fill:none;
+    stroke: var(--line);
+    stroke-width: 2;
+  }
+
+  /* ---------- STATS STRIP ---------- */
+  .stats{
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 40px 0;
+  }
+  .stats-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 800px){ .stats-grid{ grid-template-columns: repeat(2,1fr); } }
+  .stat b{
+    font-family:'Fraunces', serif;
+    font-size: 2.1rem;
+    color: var(--forest);
+    display:block;
+  }
+  .stat span{
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section.block{ padding: 88px 0; }
+  .section-head{
+    max-width: 62ch;
+    margin-bottom: 48px;
+  }
+  .section-head .mono{ margin-bottom: 14px; display:block; }
+  .section-head h2{ font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
+  .section-head p{ margin-top: 14px; color: var(--ink-soft); font-size: 1.02rem; }
+
+  /* ---------- EDUKASI: cards ---------- */
+  .edu-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 860px){ .edu-grid{ grid-template-columns: 1fr; } }
+  .edu-card{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .edu-card:hover{ transform: translateY(-4px); box-shadow: 0 16px 32px -18px rgba(14,46,41,0.28); }
+  .edu-card .icon{
+    width:42px; height:42px;
+    border-radius: 10px;
+    background: var(--bg-alt);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom: 18px;
+  }
+  .edu-card h3{ font-size: 1.12rem; margin-bottom: 10px; }
+  .edu-card p{ color: var(--ink-soft); font-size: 0.95rem; margin:0; }
+
+  /* ---------- APLIKASI: category grid ---------- */
+  .app-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 900px){ .app-grid{ grid-template-columns: repeat(2,1fr); } }
+  .app-card{
+    border-radius: var(--radius);
+    padding: 22px;
+    color: var(--paper);
+    min-height: 168px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow:hidden;
+  }
+  .app-card h3{ color: var(--paper); font-size: 1.02rem; margin-top:14px;}
+  .app-card p{ margin:0; font-size:0.85rem; opacity:0.85; }
+  .app-card .icon{ width:30px; height:30px; }
+  .app-1{ background: var(--forest); }
+  .app-2{ background: var(--clay); }
+  .app-3{ background: #6B5B3E; }
+  .app-4{ background: var(--forest-dark); }
+
+  /* ---------- TELEMEDICINE: flow ---------- */
+  .flow{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    position: relative;
+    margin-top: 8px;
+  }
+  @media (max-width: 900px){
+    .flow{ grid-template-columns: 1fr; gap: 0; }
+  }
+  .flow-step{
+    position:relative;
+    padding: 0 16px 16px 0;
+  }
+  .flow-step .step-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--amber);
+  }
+  .flow-step .step-dot{
+    width:14px; height:14px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 3px solid var(--forest);
+    margin: 10px 0 14px;
+  }
+  .flow-step h3{ font-size: 1rem; margin-bottom: 6px; }
+  .flow-step p{ font-size: 0.88rem; color: var(--ink-soft); margin:0; }
+  .flow-line{
+    position:absolute;
+    top: 24px;
+    left: 7px;
+    right: -7px;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 12px);
+  }
+  @media (max-width: 900px){
+    .flow-line{ display:none; }
+    .flow-step{ padding-left: 26px; border-left: 2px dashed var(--line); margin-left: 6px; padding-bottom: 26px; }
+    .flow-step .step-dot{ margin-left: -33px; }
+  }
+
+  /* ---------- LITERASI: quiz ---------- */
+  .quiz-box{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 36px;
+  }
+  @media (max-width: 700px){ .quiz-box{ padding: 24px; } }
+  .quiz-item{
+    display:flex;
+    align-items:flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .quiz-item:last-of-type{ border-bottom:none; }
+  .quiz-item input{
+    margin-top: 4px;
+    width:18px; height:18px;
+    accent-color: var(--forest);
+    flex-shrink:0;
+  }
+  .quiz-item label{ font-size: 0.98rem; cursor:pointer; }
+  .quiz-result{
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--bg-alt);
+    display:flex;
+    align-items:center;
+    gap: 16px;
+  }
+  .quiz-result .score{
+    font-family:'Fraunces', serif;
+    font-size: 2.2rem;
+    color: var(--forest);
+    line-height:1;
+  }
+  .quiz-result p{ margin:0; font-size:0.92rem; color: var(--ink-soft); }
+  #quizMsg{ font-weight: 500; color: var(--forest-dark); display:block; margin-bottom: 4px; }
+
+  /* ---------- CTA / FOOTER ---------- */
+  .cta{
+    background: var(--forest-dark);
+    color: var(--paper);
+    border-radius: 24px;
+    margin: 0 28px 88px;
+    padding: 56px 40px;
+    text-align:center;
+  }
+  .cta h2{ color: var(--paper); font-size: clamp(1.6rem, 3vw, 2.2rem); }
+  .cta p{ color: rgba(251,250,246,0.72); max-width: 52ch; margin: 14px auto 26px; }
+  .cta .btn-primary{ background: var(--amber); color: var(--forest-dark); }
+  .cta .btn-primary:hover{ background: #f0ad4c; }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 32px 0 40px;
+  }
+  .foot-grid{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  ::selection{ background: var(--amber-soft); }
+  :focus-visible{ outline: 2px solid var(--forest); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none"><path d="M2 12h5l2-7 4 14 2-7h7" stroke="#1B4B43" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Sehat Digital
+    </div>
+    <ul>
+      <li><a href="#edukasi">Edukasi</a></li>
+      <li><a href="#aplikasi">Aplikasi</a></li>
+      <li><a href="#telemedicine">Telemedicine</a></li>
+      <li><a href="#literasi">Literasi</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span><span class="mono">Kesehatan Masyarakat &middot; Era Digital</span></span>
+      <h1>Denyut kesehatan masyarakat, kini <em>berdetak lewat layar</em>.</h1>
+      <p class="lede">Dari edukasi lewat media sosial, aplikasi pemantau kesehatan, konsultasi dokter dalam genggaman, hingga kemampuan memilah informasi yang benar — inilah wajah kesehatan masyarakat Indonesia di era digital.</p>
+      <div class="hero-cta">
+        <a href="#telemedicine" class="btn btn-primary">Lihat cara kerja telemedicine</a>
+        <a href="#literasi" class="btn btn-ghost">Cek literasi digitalmu</a>
+      </div>
+    </div>
+    <div class="pulse-box">
+      <div class="mono">Status Transformasi Digital</div>
+      <div class="pulse-readout">
+        <span class="num">Terhubung</span>
+        <span class="unit">24/7 AKSES LAYANAN</span>
+      </div>
+      <svg id="pulseSvg" viewBox="0 0 400 110" preserveAspectRatio="none">
+        <path class="pulse-path" d="M0,60 L60,60 L80,60 L95,20 L110,100 L125,40 L140,60 L400,60"/>
+      </svg>
+      <p class="pulse-caption">Setiap ketukan mewakili satu titik layanan: edukasi, aplikasi, konsultasi, dan literasi yang saling terhubung.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider wrap">
+  <svg viewBox="0 0 1120 46" preserveAspectRatio="none"><path d="M0,23 L1120,23"/></svg>
+</div>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><b>~79%</b><span>penduduk Indonesia kini terhubung internet, membuka akses ke informasi kesehatan lebih luas</span></div>
+    <div class="stat"><b>Ribuan</b><span>aplikasi kesehatan tersedia, dari pelacak kebugaran hingga manajemen penyakit kronis</span></div>
+    <div class="stat"><b>Menit</b><span>waktu tunggu konsultasi telemedicine, dibanding antre berjam-jam di fasilitas kesehatan</span></div>
+    <div class="stat"><b>Kunci</b><span>literasi digital jadi penentu apakah teknologi ini benar menyehatkan atau menyesatkan</span></div>
+  </div>
+</section>
+
+<!-- EDUKASI -->
+<section class="block" id="edukasi">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">01 &middot; Edukasi Kesehatan Digital</span>
+      <h2>Informasi kesehatan kini datang menghampiri, bukan menunggu dicari.</h2>
+      <p>Kanal digital mengubah cara masyarakat belajar tentang tubuh dan penyakit — lebih cepat, lebih personal, tapi juga lebih rawan bias jika tidak dikawal dengan literasi yang baik.</p>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 5h11a2 2 0 012 2v12H6a2 2 0 01-2-2V5z" stroke="#1B4B43" stroke-width="1.8"/><path d="M4 5a2 2 0 012-2h1v16H6a2 2 0 00-2 2V5z" stroke="#1B4B43" stroke-width="1.8"/></svg></div>
+        <h3>Konten media sosial</h3>
+        <p>Puskesmas, rumah sakit, dan tenaga kesehatan membagikan edukasi lewat video pendek, infografis, dan siaran langsung yang mudah dibagikan ulang.</p>
+      </div>
+      <div class="edu-card">
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#1B4B43" stroke-width="1.8"/><path d="M8 12l2.5 2.5L16 9" stroke="#1B4B43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Webinar & kelas daring</h3>
+        <p>Pelatihan gizi, kesehatan reproduksi, hingga pertolongan pertama kini bisa diikuti dari rumah, menjangkau daerah yang jauh dari tenaga ahli.</p>
+      </div>
+      <div class="edu-card">
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="#1B4B43" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#1B4B43" stroke-width="1.8"/></svg></div>
+        <h3>Chatbot & asisten kesehatan</h3>
+        <p>Layanan tanya-jawab otomatis membantu masyarakat mengenali gejala awal dan menentukan apakah perlu segera mencari bantuan medis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider wrap"><svg viewBox="0 0 1120 46" preserveAspectRatio="none"><path d="M0,23 L1120,23"/></svg></div>
+
+<!-- APLIKASI -->
+<section class="block" id="aplikasi">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">02 &middot; Aplikasi Kesehatan</span>
+      <h2>Satu genggaman, empat cara menjaga tubuh tetap terpantau.</h2>
+      <p>Aplikasi kesehatan kini merambah lebih dari sekadar hitung langkah — mereka menemani pengelolaan penyakit jangka panjang, kesehatan jiwa, hingga tumbuh kembang anak.</p>
+    </div>
+    <div class="app-grid">
+      <div class="app-card app-1">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2 6 4-14 2 8h6" stroke="#FBFAF6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><h3>Pelacak kebugaran</h3><p>Langkah, detak jantung, tidur, dan aktivitas harian.</p></div>
+      </div>
+      <div class="app-card app-2">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-9.5-9C1 8 3 4 7 4c2 0 4 1.2 5 3 1-1.8 3-3 5-3 4 0 6 4 4.5 8-2.5 4.5-9.5 9-9.5 9z" stroke="#FBFAF6" stroke-width="1.8"/></svg>
+        <div><h3>Manajemen penyakit kronis</h3><p>Pengingat obat, catatan gula darah, dan tekanan darah.</p></div>
+      </div>
+      <div class="app-card app-3">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#FBFAF6" stroke-width="1.8"/><path d="M4 21c1.5-4.5 5-6 8-6s6.5 1.5 8 6" stroke="#FBFAF6" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div><h3>Kesehatan mental</h3><p>Jurnal suasana hati, meditasi terpandu, konseling ringan.</p></div>
+      </div>
+      <div class="app-card app-4">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 3c-4 3-7 6-7 10a7 7 0 0014 0c0-4-3-7-7-10z" stroke="#FBFAF6" stroke-width="1.8"/></svg>
+        <div><h3>Gizi & ibu-anak</h3><p>Pemantauan kehamilan, tumbuh kembang, dan jadwal imunisasi.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider wrap"><svg viewBox="0 0 1120 46" preserveAspectRatio="none"><path d="M0,23 L1120,23"/></svg></div>
+
+<!-- TELEMEDICINE -->
+<section class="block" id="telemedicine">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">03 &middot; Telemedicine</span>
+      <h2>Ruang periksa kini bisa dibuka dari mana saja.</h2>
+      <p>Telemedicine memangkas jarak antara pasien dan tenaga medis, terutama bagi masyarakat di daerah dengan akses layanan kesehatan yang terbatas.</p>
+    </div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-line"></div>
+        <span class="step-num">01</span>
+        <div class="step-dot"></div>
+        <h3>Daftar</h3>
+        <p>Pasien membuat janji lewat aplikasi, memilih keluhan dan dokter yang tersedia.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line"></div>
+        <span class="step-num">02</span>
+        <div class="step-dot"></div>
+        <h3>Konsultasi</h3>
+        <p>Percakapan teks, suara, atau video dengan tenaga medis berlisensi.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line"></div>
+        <span class="step-num">03</span>
+        <div class="step-dot"></div>
+        <h3>Diagnosis</h3>
+        <p>Dokter menilai gejala dan menentukan apakah cukup ditangani jarak jauh.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-line"></div>
+        <span class="step-num">04</span>
+        <div class="step-dot"></div>
+        <h3>Resep digital</h3>
+        <p>Resep terkirim otomatis ke apotek mitra, obat bisa diantar ke rumah.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">05</span>
+        <div class="step-dot"></div>
+        <h3>Pantauan lanjut</h3>
+        <p>Jadwal kontrol dan catatan kesehatan tersimpan untuk kunjungan berikutnya.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider wrap"><svg viewBox="0 0 1120 46" preserveAspectRatio="none"><path d="M0,23 L1120,23"/></svg></div>
+
+<!-- LITERASI -->
+<section class="block" id="literasi">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">04 &middot; Literasi Kesehatan Digital</span>
+      <h2>Teknologi hanya menyehatkan bila penggunanya bijak menyaringnya.</h2>
+      <p>Semua manfaat di atas hanya berarti bila masyarakat mampu menilai sumber informasi, menjaga data pribadi, dan tahu kapan harus tetap menemui tenaga medis langsung. Coba cek pemahamanmu di bawah ini.</p>
+    </div>
+    <div class="quiz-box">
+      <div class="quiz-item">
+        <input type="checkbox" id="q1"><label for="q1">Saya memeriksa kredibilitas sumber sebelum memercayai info kesehatan di media sosial.</label>
+      </div>
+      <div class="quiz-item">
+        <input type="checkbox" id="q2"><label for="q2">Saya tahu cara membaca izin edar / label pada aplikasi atau produk kesehatan digital.</label>
+      </div>
+      <div class="quiz-item">
+        <input type="checkbox" id="q3"><label for="q3">Saya berhati-hati membagikan data kesehatan pribadi di aplikasi.</label>
+      </div>
+      <div class="quiz-item">
+        <input type="checkbox" id="q4"><label for="q4">Saya tetap memeriksakan diri ke tenaga medis untuk gejala serius, bukan hanya mengandalkan chatbot.</label>
+      </div>
+      <div class="quiz-item">
+        <input type="checkbox" id="q5"><label for="q5">Saya membandingkan lebih dari satu sumber sebelum mengikuti saran kesehatan daring.</label>
+      </div>
+      <div class="quiz-result">
+        <div class="score" id="quizScore">0/5</div>
+        <div>
+          <span id="quizMsg">Centang pernyataan yang sesuai dengan kebiasaanmu.</span>
+          <p id="quizDetail">Semakin banyak dicentang, semakin siap kamu memanfaatkan layanan kesehatan digital dengan aman.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta wrap" style="max-width:1064px;">
+  <h2>Mulai dari langkah kecil hari ini.</h2>
+  <p>Ikuti akun kesehatan resmi, unduh satu aplikasi yang relevan dengan kebutuhanmu, dan jangan ragu memakai telemedicine saat butuh akses cepat ke tenaga medis.</p>
+  <a href="#edukasi" class="btn btn-primary">Kembali ke atas</a>
+</div>
+
+<footer>
+  <div class="wrap foot-grid">
+    <span>Kesehatan Masyarakat di Era Digital — materi edukasi umum, bukan pengganti nasihat medis profesional.</span>
+    <span>Dibuat sebagai bahan literasi digital.</span>
+  </div>
+</footer>
+
+<script>
+  const boxes = ['q1','q2','q3','q4','q5'].map(id => document.getElementById(id));
+  const scoreEl = document.getElementById('quizScore');
+  const msgEl = document.getElementById('quizMsg');
+  const detailEl = document.getElementById('quizDetail');
+
+  function update(){
+    const total = boxes.filter(b => b.checked).length;
+    scoreEl.textContent = total + '/5';
+    let msg, detail;
+    if(total <= 1){
+      msg = 'Baru mulai — dan itu titik awal yang baik.';
+      detail = 'Coba cek ulang sumber informasi kesehatan yang kamu ikuti minggu ini, satu per satu.';
+    } else if(total <= 3){
+      msg = 'Cukup waspada, masih bisa ditingkatkan.';
+      detail = 'Perkuat kebiasaan memeriksa lebih dari satu sumber sebelum mengambil keputusan kesehatan.';
+    } else {
+      msg = 'Literasi kesehatan digitalmu solid.';
+      detail = 'Bagikan kebiasaan baik ini ke keluarga atau teman yang masih mudah percaya info tanpa saring.';
+    }
+    msgEl.textContent = msg;
+    detailEl.textContent = detail;
+  }
+  boxes.forEach(b => b.addEventListener('change', update));
+</script>
+
+</body>
+</html>
